@@ -4,6 +4,7 @@ import cors from "cors"
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import authRoute from "./routes/user.js";
+import noteRoute from "./routes/note.js";
 
 
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(cors());
 
 
 app.use("/users",authRoute);
+app.use("/notes",noteRoute);
 
 app.get('/',(req,res)=>{
     res.send("MERN project is successfully running");
