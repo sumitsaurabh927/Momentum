@@ -13,7 +13,7 @@ export const getNotification = async (title,email,Id) => {
           email: email
         },
         payload: {
-            title: "hello there"
+            title: title
         }
       });
 }
