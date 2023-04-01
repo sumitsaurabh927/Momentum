@@ -22,7 +22,7 @@ export const createNote= async (req,res)=>{
     });
     try {
         await newNote.save();
-        await getNotification(title,email,newNote._id);
+        await getNotification(title,description,email,newNote._id);
         res.status(201).json(newNote);
     } catch (error) {
         res.status(409).json({message:error});
