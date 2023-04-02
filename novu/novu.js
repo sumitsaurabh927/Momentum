@@ -39,3 +39,21 @@ export const smsNotification = async (title,description,phone,Id) => {
         }
     });
 }
+
+export const inAppNotification = async (title,description,Id) => {
+    const novu = new Novu(process.env.NOVU_API_KEY);
+
+    await novu.subscribers.identify(Id, {
+        firstName: "inAppSubscriber"
+    });
+
+    await novu.trigger('in-app', {
+        to: {
+            subscriberId: Id
+        },
+        payload: {
+            title: title,
+            description: description
+        }
+    });
+}
