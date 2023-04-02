@@ -11,7 +11,7 @@ export const signUp= async (req,res)=>{
         if (password!==confirm_password) return res.status(400).json({message:"Password should match.."})
         const hashedPassword= await bcrypt.hash(password,12);
         const result= await user.create({email,password:hashedPassword,name: `${first_name} ${last_name}`});
-        const token= jwt.sign({email:result.email,id:result._id},'secret',{expiresIn:'1h'});
+        const token= jwt.sign({email:result.email,id:result._id},'secret',{expiresIn:'5h'});
         res.status(200).json({result,token});
     } catch (error) {
         res.status(500).json({message:"Something went wrong!! try again."})
@@ -28,7 +28,7 @@ export const signIn= async (req,res)=>{
 
         if(!isPasswordCorrect) return res.status(400).json({message:"Invalid password,try again!!"});
 
-        const token= jwt.sign({email:existingUser.email,id:existingUser._id},'secret',{expiresIn:'1h'});
+        const token= jwt.sign({email:existingUser.email,id:existingUser._id},'secret',{expiresIn:'5h'});
 
         res.status(200).json({result:existingUser, token});
     } catch (error) {
