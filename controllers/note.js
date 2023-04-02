@@ -1,6 +1,6 @@
 import notes from "../models/note.js";
 import mongoose from "mongoose";
-import { getNotification } from "../novu/novu.js";
+import { getNotification, smsNotification } from "../novu/novu.js";
 
 export const getNotes= async (req,res)=>{
     try {
@@ -12,17 +12,19 @@ export const getNotes= async (req,res)=>{
 }
 
 export const createNote= async (req,res)=>{
-    const { title, description, email } = req.body;
+    const { title, description, email, phone } = req.body;
     const newNote = new notes({
         title,
         description,
         email,
+        phone,
         creator: req.userId,
         createdAt: new Date().toISOString()
     });
     try {
         await newNote.save();
         await getNotification(title,description,email,newNote._id);
+        await smsNotification(title,description,phone,newNote._id);
         res.status(201).json(newNote);
     } catch (error) {
         res.status(409).json({message:error});
