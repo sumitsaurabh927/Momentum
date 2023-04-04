@@ -12,12 +12,13 @@ export const getNotes= async (req,res)=>{
 }
 
 export const createNote= async (req,res)=>{
-    const { title, description, email, phone } = req.body;
+    const { title, description, email, phone, date } = req.body;
     const newNote = new notes({
         title,
         description,
         email,
         phone,
+        date,
         creator: req.userId,
         createdAt: new Date().toISOString()
     });

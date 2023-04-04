@@ -6,6 +6,7 @@ const noteSchema= mongoose.Schema(
         description:{type:String},
         email:{type:String,required:true},
         phone:{type:Number,default:null},
+        date: { type: Date, required: true },
         creator:{type:String,required:true},
         createdAt:{
             type: Date,
