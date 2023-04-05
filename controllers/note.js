@@ -12,7 +12,7 @@ export const getNotes= async (req,res)=>{
 }
 
 export const createNote= async (req,res)=>{
-    const { title, description, date } = req.body;
+    const { title, description, date,message } = req.body;
     const newNote = new notes({
         title,
         description,
@@ -22,7 +22,7 @@ export const createNote= async (req,res)=>{
     });
     try {
         await newNote.save();
-        await inAppNotification(title,description,req.userId);
+        await inAppNotification(title,description,req.userId,message);
         res.status(201).json(newNote);
     } catch (error) {
         res.status(409).json({message:error});
@@ -63,5 +63,16 @@ export const sendEmailNotification = async (req,res) => {
     } catch (error) {
         console.log("sendEmailNotification error",error);
         res.status(500).json({message:"Failed to send Email"});
+    }
+}
+
+export const deleteInAppNotification = async (req,res) => {
+    try {
+        const {title,description,userId,message} = req.body;
+        await inAppNotification(title,description,userId,message);
+        res.status(200).json({message:"Todo delted successfully"});
+    } catch (error) {
+        console.log("deleteInAppNotification error",error);
+        res.status(500).json({message:"Todo deleted successfully"})
     }
 }
