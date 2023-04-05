@@ -12,20 +12,16 @@ export const getNotes= async (req,res)=>{
 }
 
 export const createNote= async (req,res)=>{
-    const { title, description, email, phone, date } = req.body;
+    const { title, description, date } = req.body;
     const newNote = new notes({
         title,
         description,
-        email,
-        phone,
         date,
         creator: req.userId,
         createdAt: new Date().toISOString()
     });
     try {
         await newNote.save();
-        await getNotification(title,description,email,newNote._id);
-        await smsNotification(title,description,phone,newNote._id);
         await inAppNotification(title,description,req.userId);
         res.status(201).json(newNote);
     } catch (error) {
@@ -46,4 +42,26 @@ export const updateNote = async (req,res)=>{
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send(`No note is available with id:${id}`);
     const updatedNote= await notes.findByIdAndUpdate(_id,{...note,_id},{new:true})
     res.json(updatedNote);
+}
+
+export const sendSmsNotification = async (req,res) => {
+    try {
+        const {title,description,phone,noteId} = req.body;
+        await smsNotification(title,description,phone,noteId);
+        res.status(200).json({message:"SMS sent successfully"});
+    } catch (error) {
+        console.log("sendSmsNotification error",error);
+        res.status(500).json({message:"Failed to send SMS"})
+    }
+}
+
+export const sendEmailNotification = async (req,res) => {
+    try {
+        const {title,description,email,noteId} = req.body;
+        await getNotification(title,description,email,noteId);
+        res.status(200).json({message:"Email sent successfully"});
+    } catch (error) {
+        console.log("sendEmailNotification error",error);
+        res.status(500).json({message:"Failed to send Email"});
+    }
 }
