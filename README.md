@@ -52,31 +52,6 @@ Here is Moonshine running locally on my machine:
 
 
 
-## Environment Variables
-
-To run this project, you will need to add the following environment variable to your .env file
-
-`INsert varible name`:  
-
-
-## Tech Stack
-
-**Client-side:**  
-Novu, React, Redux, DotEnv, Axios, JWTEncode, Moment, React-Icons and more
-
-**Server-side:**  
-Novu, Node, Express, MongoDB, Mongoose, BCrypt, JSONWebToken and more
-
-**Deployment:**  
-- Front-End: Vercel
-- Back-End: Render
-
-
-## More info:
-- This repo only contains the client-side code and relies on the backed code [here](https://github.com/sumitsaurabh927/Momentum) to work correctly. Make sure to check that out as well.
-
-- Also, I've written a detailed article about Moonshine and I'll be really happy if you'd [give it a heart here!](inserLlink) 😍
-
 
 ## Environment Variables
 
@@ -103,6 +78,6 @@ Novu, Node, Express, MongoDB, Mongoose, BCrypt, JSONWebToken and more
 
 
 ## More info:
-- This repo only contains the client-side code and relies on the backed code [here](https://github.com/sumitsaurabh927/Momentum) to work correctly. Make sure to check that out as well.
+- This repo only contains the back-end code and relies on the front-end code [here](https://github.com/sumitsaurabh927/Momentum-fe) to work correctly. Make sure to check that out as well.
 
 - Also, I've written a detailed article about Moonshine and I'll be really happy if you'd [give it a heart here!](inserLlink) 😍
